@@ -2,6 +2,7 @@ package com.estudo.dscatalog.exception.handler;
 
 import com.estudo.dscatalog.exception.error.CustomError;
 import com.estudo.dscatalog.exception.error.ValidationError;
+import com.estudo.dscatalog.exception.exceptions.DatabaseException;
 import com.estudo.dscatalog.exception.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -32,5 +33,13 @@ public class ControllerExceptionHandler {
         }
         return ResponseEntity.status(status).body(error);
     }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<CustomError> dataBaseException(DatabaseException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        ValidationError error = new ValidationError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(error);
+    }
+
 
 }
