@@ -10,6 +10,7 @@ import com.estudo.dscatalog.service.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -38,8 +39,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CategoryResponseDTO> findAll(Pageable pageable) {
-        Page<Category> categories = categoryRepository.findAll(pageable);
+    public Page<CategoryResponseDTO> findAll(PageRequest pageRequest) {
+        Page<Category> categories = categoryRepository.findAll(pageRequest);
         return categories.map( c -> new CategoryResponseDTO(c));
     }
 
