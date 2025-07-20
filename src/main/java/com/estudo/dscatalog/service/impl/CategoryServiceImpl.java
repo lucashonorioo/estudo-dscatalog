@@ -56,8 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new RuntimeException("O id precisa ser positivo e não nulo");
         }
         try{
-            Category category = new Category();
-            category = categoryRepository.getReferenceById(id);
+            Category category = categoryRepository.getReferenceById(id);
             toDTO(categoryRequestDTO, category);
             category = categoryRepository.save(category);
             return new CategoryResponseDTO(category);
