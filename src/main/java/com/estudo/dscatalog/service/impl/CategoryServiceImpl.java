@@ -39,8 +39,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CategoryResponseDTO> findAll(PageRequest pageRequest) {
-        Page<Category> categories = categoryRepository.findAll(pageRequest);
+    public Page<CategoryResponseDTO> findAll(Pageable pageable) {
+        Page<Category> categories = categoryRepository.findAll(pageable);
         return categories.map( c -> new CategoryResponseDTO(c));
     }
 

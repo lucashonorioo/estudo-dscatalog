@@ -4,11 +4,12 @@ import com.estudo.dscatalog.dto.request.ProductRequestDTO;
 import com.estudo.dscatalog.dto.response.ProductResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
 
     ProductResponseDTO findById(Long id);
-    Page<ProductResponseDTO> findAll(PageRequest pageRequest);
+    Page<ProductResponseDTO> findAll(Pageable pageablege);
     ProductResponseDTO insert(ProductRequestDTO productRequestDTO);
     ProductResponseDTO update(Long id, ProductRequestDTO productRequestDTO);
     void delete(Long id);

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 public interface CategoryService {
 
     CategoryResponseDTO findById(Long id);
-    Page<CategoryResponseDTO> findAll(PageRequest pageRequest);
+    Page<CategoryResponseDTO> findAll(Pageable pageable);
     CategoryResponseDTO insert(CategoryRequestDTO categoryRequestDTO);
     CategoryResponseDTO update(Long id, CategoryRequestDTO categoryRequestDTO);
     void delete(Long id);
