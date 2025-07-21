@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 
 public class CategoryRequestDTO {
 
+    private Long id;
+
     @NotBlank(message = "O nome não pode ser vazio")
     private String name;
 
@@ -22,5 +24,9 @@ public class CategoryRequestDTO {
 
     public String getName() {
         return name;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

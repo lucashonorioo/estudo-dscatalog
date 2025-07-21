@@ -87,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
-    public static void toDTO(CategoryRequestDTO categoryRequestDTO, Category category){
+    private void toDTO(CategoryRequestDTO categoryRequestDTO, Category category){
                 category.setName(categoryRequestDTO.getName());
     }
 

@@ -4,7 +4,10 @@ package com.estudo.dscatalog.dto.response;
 import com.estudo.dscatalog.model.Category;
 import com.estudo.dscatalog.model.Product;
 
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ProductResponseDTO {
@@ -15,18 +18,21 @@ public class ProductResponseDTO {
     private Double price;
     private String imgUrl;
 
-    private Set<CategoryResponseDTO> categories = new HashSet<>();
+    private Instant date;
+
+    private List<CategoryResponseDTO> categories = new ArrayList<>();
 
     public ProductResponseDTO(){
 
     }
 
-    public ProductResponseDTO(Long id, String name, String description, Double price, String imgUrl) {
+    public ProductResponseDTO(Long id, String name, String description, Double price, String imgUrl, Instant date) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
+        this.date = date;
     }
 
     public ProductResponseDTO(Product product) {
@@ -35,6 +41,7 @@ public class ProductResponseDTO {
         description = product.getDescription();
         price = product.getPrice();
         imgUrl = product.getImgUrl();
+        date = product.getDate();
         for(Category category : product.getCategories()){
             categories.add(new CategoryResponseDTO(category));
         }
@@ -61,7 +68,11 @@ public class ProductResponseDTO {
         return imgUrl;
     }
 
-    public Set<CategoryResponseDTO> getCategories() {
+    public Instant getDate() {
+        return date;
+    }
+
+    public List<CategoryResponseDTO> getCategories() {
         return categories;
     }
 }

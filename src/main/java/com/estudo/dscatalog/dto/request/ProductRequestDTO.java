@@ -4,10 +4,15 @@ import com.estudo.dscatalog.model.Category;
 import com.estudo.dscatalog.model.Product;
 import jakarta.validation.constraints.*;
 
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ProductRequestDTO {
+
+
 
     @NotBlank(message = "O nome não pode ser vazio")
     private String name;
@@ -21,25 +26,30 @@ public class ProductRequestDTO {
 
     private String imgUrl;
 
+    private Instant date;
+
     @NotEmpty(message = "A categoria não pode ser vazia")
-    private Set<CategoryRequestDTO> categories = new HashSet<>();
+    private List<CategoryRequestDTO> categories = new ArrayList<>();
+
 
     public ProductRequestDTO(){
 
     }
 
-    public ProductRequestDTO(String name, String description, Double price, String imgUrl) {
+    public ProductRequestDTO(String name, String description, Double price, String imgUrl, Instant date) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
+        this.date = date;
     }
 
     public ProductRequestDTO(Product product) {
-        this.name = product.getName();
-        this.description = product.getDescription();
-        this.price = product.getPrice();
-        this.imgUrl = product.getImgUrl();
+        name = product.getName();
+        description = product.getDescription();
+        price = product.getPrice();
+        imgUrl = product.getImgUrl();
+        date = product.getDate();
         for(Category category : product.getCategories()){
             categories.add(new CategoryRequestDTO(category));
         }
@@ -61,7 +71,11 @@ public class ProductRequestDTO {
         return imgUrl;
     }
 
-    public Set<CategoryRequestDTO> getCategories() {
+    public Instant getDate() {
+        return date;
+    }
+
+    public List<CategoryRequestDTO> getCategories() {
         return categories;
     }
 }
