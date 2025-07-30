@@ -50,10 +50,13 @@ public class ProductRequestDTO {
         price = product.getPrice();
         imgUrl = product.getImgUrl();
         date = product.getDate();
-        for(Category category : product.getCategories()){
-            categories.add(new CategoryRequestDTO(category));
-        }
     }
+
+    public ProductRequestDTO(Product product, Set<Category> categories) {
+        this(product);
+        categories.forEach( c -> this.categories.add(new CategoryRequestDTO(c)));
+    }
+
 
     public String getName() {
         return name;
