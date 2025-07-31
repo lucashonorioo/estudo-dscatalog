@@ -19,12 +19,14 @@ public class ProductRepositoryTests {
 
 
     private long existingId;
+    private long notExistendId;
     private long countTotalProducts;
 
     @BeforeEach
     void setUp() throws Exception{
 
         existingId = 10L;
+        notExistendId = 1000;
         countTotalProducts = 25L;
 
     }
@@ -61,6 +63,16 @@ public class ProductRepositoryTests {
 
         Assertions.assertTrue(product.isPresent());
     }
+
+    @Test
+    public void shouldReturnOptionalEmptyWhenIdNotExist(){
+
+        Optional<Product> product = productRepository.findById(notExistendId);
+
+        Assertions.assertTrue(product.isEmpty());
+
+    }
+
 
 
 }
