@@ -13,6 +13,7 @@ import com.estudo.dscatalog.repository.ProductRepository;
 import com.estudo.dscatalog.service.ProductService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -79,6 +80,9 @@ public class ProductServiceImpl implements ProductService  {
     public void delete(Long id) {
         if(id == null || id <= 0){
             throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        if(!productRepository.existsById(id)){
+            throw new ResourceNotFoundException("Recurso não encotrado");
         }
         try{
             productRepository.deleteById(id);
