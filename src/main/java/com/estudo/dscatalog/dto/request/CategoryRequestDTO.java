@@ -19,6 +19,7 @@ public class CategoryRequestDTO {
     }
 
     public CategoryRequestDTO(Category category) {
+        id = category.getId();
         name = category.getName();
     }
 
@@ -29,4 +30,5 @@ public class CategoryRequestDTO {
     public Long getId() {
         return id;
     }
+
 }
