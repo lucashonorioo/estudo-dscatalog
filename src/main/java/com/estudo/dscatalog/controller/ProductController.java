@@ -5,9 +5,7 @@ import com.estudo.dscatalog.dto.response.ProductResponseDTO;
 import com.estudo.dscatalog.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,11 +14,11 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/products")
-public class ProductConotroller {
+public class ProductController {
 
     private final ProductService productService;
 
-    public ProductConotroller(ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 

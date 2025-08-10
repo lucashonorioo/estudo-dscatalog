@@ -1,6 +1,7 @@
 package com.estudo.dscatalog.tests;
 
 import com.estudo.dscatalog.dto.request.ProductRequestDTO;
+import com.estudo.dscatalog.dto.response.ProductResponseDTO;
 import com.estudo.dscatalog.model.Category;
 import com.estudo.dscatalog.model.Product;
 
@@ -18,6 +19,11 @@ public class Factory {
     public static ProductRequestDTO createProductDTO(){
         Product product = createProduct();
         return new ProductRequestDTO(product, product.getCategories());
+    }
+
+    public static ProductResponseDTO createProductResponseDTO(){
+        Product product = createProduct();
+        return new ProductResponseDTO(product);
     }
 
     public static Category createCategory(){
