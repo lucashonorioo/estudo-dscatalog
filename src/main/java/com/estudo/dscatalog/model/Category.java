@@ -21,7 +21,7 @@ public class Category {
     private Instant updateAt;
 
     @ManyToMany(mappedBy = "categories")
-    Set<Product> products = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
     public Category(){
 
