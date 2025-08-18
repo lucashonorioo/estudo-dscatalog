@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService  {
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         if(id == null || id <= 0){
-            throw new ResourceNotFoundException("Recurso não encontrado");
+            throw new ResourceNotFoundException("O id deve ser positivo e não nulo");
         }
         if(!productRepository.existsById(id)){
             throw new ResourceNotFoundException("Recurso não encotrado");
