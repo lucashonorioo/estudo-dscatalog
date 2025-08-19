@@ -13,7 +13,7 @@ import java.util.Set;
 public class ProductRequestDTO {
 
 
-
+    @Size(min = 5, max = 60, message = "Deve ter entre 5 e 60 caracteres")
     @NotBlank(message = "O nome não pode ser vazio")
     private String name;
 
@@ -26,6 +26,7 @@ public class ProductRequestDTO {
 
     private String imgUrl;
 
+    @PastOrPresent(message = "A  data do produto não pode ser futura")
     private Instant date;
 
     @NotEmpty(message = "A categoria não pode ser vazia")
