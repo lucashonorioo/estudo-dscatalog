@@ -3,7 +3,7 @@ package com.estudo.dscatalog.service.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.estudo.dscatalog.dto.request.UserRequestDTO;
+import com.estudo.dscatalog.dto.request.UserInsertDTO;
 import com.estudo.dscatalog.model.User;
 import com.estudo.dscatalog.repository.UserRepository;
 import jakarta.validation.ConstraintValidator;
@@ -12,7 +12,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import com.estudo.dscatalog.exception.error.FieldMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserRequestDTO> {
+public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
 
     @Autowired
     private UserRepository userRepository;
@@ -22,7 +22,7 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
     }
 
     @Override
-    public boolean isValid(UserRequestDTO dto, ConstraintValidatorContext context) {
+    public boolean isValid(UserInsertDTO dto, ConstraintValidatorContext context) {
 
         List<FieldMessage> list = new ArrayList<>();
 

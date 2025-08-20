@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
 
-@UserInsertValid
+
 public class UserRequestDTO {
 
     @NotBlank(message = "O primeiro nome não pode ser vazio")

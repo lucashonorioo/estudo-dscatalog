@@ -1,6 +1,8 @@
 package com.estudo.dscatalog.service.impl;
 
+import com.estudo.dscatalog.dto.request.UserInsertDTO;
 import com.estudo.dscatalog.dto.request.UserRequestDTO;
+import com.estudo.dscatalog.dto.request.UserUpdateDTO;
 import com.estudo.dscatalog.dto.response.RoleResponseDTO;
 import com.estudo.dscatalog.dto.response.UserResponseDTO;
 import com.estudo.dscatalog.exception.exceptions.DatabaseException;
@@ -54,23 +56,23 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserResponseDTO insert(UserRequestDTO userRequestDTO) {
+    public UserResponseDTO insert(UserInsertDTO userInsertDTO) {
         User user = new User();
-        toDto(userRequestDTO, user);
-        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
+        toDto(userInsertDTO, user);
+        user.setPassword(passwordEncoder.encode(userInsertDTO.getPassword()));
         user = userRepository.save(user);
         return new UserResponseDTO(user);
     }
 
     @Transactional
     @Override
-    public UserResponseDTO update(Long id, UserRequestDTO userRequestDTO) {
+    public UserResponseDTO update(Long id, UserUpdateDTO userUpdateDTO) {
         if(id == null || id <= 0){
             throw new RuntimeException("O id deve ser positivo e não nulo");
         }
         try {
             User user = userRepository.getReferenceById(id);
-            toDto(userRequestDTO, user);
+            toDto(userUpdateDTO, user);
             return new UserResponseDTO(user);
         }
         catch (EntityNotFoundException e){

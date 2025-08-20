@@ -1,6 +1,8 @@
 package com.estudo.dscatalog.service;
 
+import com.estudo.dscatalog.dto.request.UserInsertDTO;
 import com.estudo.dscatalog.dto.request.UserRequestDTO;
+import com.estudo.dscatalog.dto.request.UserUpdateDTO;
 import com.estudo.dscatalog.dto.response.UserResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,8 +11,8 @@ public interface UserService {
 
     UserResponseDTO findById(Long id);
     Page<UserResponseDTO> findAll(Pageable pageable);
-    UserResponseDTO insert(UserRequestDTO userRequestDTO);
-    UserResponseDTO update(Long id, UserRequestDTO userRequestDTO);
+    UserResponseDTO insert(UserInsertDTO userRequestDTO);
+    UserResponseDTO update(Long id, UserUpdateDTO userRequestDTO);
     void delete(Long id);
 
 }
