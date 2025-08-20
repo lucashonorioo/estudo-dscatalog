@@ -9,6 +9,7 @@ import com.estudo.dscatalog.exception.exceptions.DatabaseException;
 import com.estudo.dscatalog.exception.exceptions.ResourceNotFoundException;
 import com.estudo.dscatalog.model.Role;
 import com.estudo.dscatalog.model.User;
+import com.estudo.dscatalog.projections.UserDetailsProjection;
 import com.estudo.dscatalog.repository.RoleRepository;
 import com.estudo.dscatalog.repository.UserRepository;
 import com.estudo.dscatalog.service.UserService;
@@ -17,12 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -98,6 +104,21 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        List<UserDetailsProjection> result = userRepository.searchUserAndRolesByEmail(username);
+        if(result.size() == 0){
+            throw new UsernameNotFoundException("User not found");
+        }
+        User user = new User();
+        user.setEmail(username);
+        user.setPassword(result.get(0).getPassword());
+        for(UserDetailsProjection projection : result){
+            user.addRole(new Role(projection.getRoleId(), projection.getAuthority()));
+        }
+        return user;
+    }
+
     private void toDto(UserRequestDTO userRequestDTO, User user){
         user.setFirstName(userRequestDTO.getFirstName());
         user.setLastName(userRequestDTO.getLastName());
@@ -107,5 +128,6 @@ public class UserServiceImpl implements UserService {
             user.getRoles().add(role);
         }
     }
+
 
 }

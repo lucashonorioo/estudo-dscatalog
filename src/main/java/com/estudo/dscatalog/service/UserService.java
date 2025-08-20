@@ -1,7 +1,6 @@
 package com.estudo.dscatalog.service;
 
 import com.estudo.dscatalog.dto.request.UserInsertDTO;
-import com.estudo.dscatalog.dto.request.UserRequestDTO;
 import com.estudo.dscatalog.dto.request.UserUpdateDTO;
 import com.estudo.dscatalog.dto.response.UserResponseDTO;
 import org.springframework.data.domain.Page;
