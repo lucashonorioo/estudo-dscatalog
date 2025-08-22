@@ -15,6 +15,8 @@ public class User implements UserDetails {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Column(unique = true, nullable = false)
     private String email;
     private String password;
 
@@ -74,12 +76,12 @@ public class User implements UserDetails {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return "email";
+        return this.email;
     }
 
     @Override
