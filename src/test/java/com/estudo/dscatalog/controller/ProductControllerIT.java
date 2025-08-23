@@ -7,6 +7,7 @@ import com.estudo.dscatalog.model.Product;
 import com.estudo.dscatalog.repository.ProductRepository;
 import com.estudo.dscatalog.service.impl.ProductServiceImpl;
 import com.estudo.dscatalog.tests.Factory;
+import com.estudo.dscatalog.tests.TokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -45,10 +46,14 @@ public class ProductControllerIT {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private TokenUtil tokenUtil;
+
     private Long existingId;
     private Long nonExistingId;
     private Long countTotalProducts;
 
+    private String username, password, bearerToken;
 
     @BeforeEach
     void setUp() throws Exception{
@@ -56,6 +61,11 @@ public class ProductControllerIT {
         existingId = 1L;
         nonExistingId = 1000L;
         countTotalProducts = 25L;
+
+        username = "maria@gmail.com";
+        password = "123456";
+
+        bearerToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
 
     }
 
@@ -66,6 +76,7 @@ public class ProductControllerIT {
         String jsonBody = objectMapper.writeValueAsString(productRequestDTO);
 
         ResultActions result = mockMvc.perform(put("/products/{id}", nonExistingId)
+                .header("Authorization", "Bearer " + bearerToken)
                 .content(jsonBody)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
@@ -84,6 +95,7 @@ public class ProductControllerIT {
         String expectedDescription = productRequestDTO.getDescription();
 
         ResultActions result = mockMvc.perform(put("/products/{id}", existingId)
+                .header("Authorization", "Bearer " + bearerToken)
                 .content(jsonBody)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
