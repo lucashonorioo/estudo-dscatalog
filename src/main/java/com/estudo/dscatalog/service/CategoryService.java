@@ -2,14 +2,13 @@ package com.estudo.dscatalog.service;
 
 import com.estudo.dscatalog.dto.request.CategoryRequestDTO;
 import com.estudo.dscatalog.dto.response.CategoryResponseDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface CategoryService {
 
     CategoryResponseDTO findById(Long id);
-    Page<CategoryResponseDTO> findAll(Pageable pageable);
+    List<CategoryResponseDTO> findAll();
     CategoryResponseDTO insert(CategoryRequestDTO categoryRequestDTO);
     CategoryResponseDTO update(Long id, CategoryRequestDTO categoryRequestDTO);
     void delete(Long id);
