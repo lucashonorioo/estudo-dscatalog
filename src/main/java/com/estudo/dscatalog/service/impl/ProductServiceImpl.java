@@ -12,6 +12,7 @@ import com.estudo.dscatalog.projections.ProductProjection;
 import com.estudo.dscatalog.repository.CategoryRepository;
 import com.estudo.dscatalog.repository.ProductRepository;
 import com.estudo.dscatalog.service.ProductService;
+import com.estudo.dscatalog.util.Utils;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -56,10 +57,13 @@ public class ProductServiceImpl implements ProductService  {
         if(!"0".equals(categoryId)){
             categoryIds = Arrays.asList(categoryId.split(",")).stream().map(Long::parseLong).toList();
         }
-        Page<ProductProjection> page = productRepository.searchProducts(categoryIds, name, pageable);
+        Page<ProductProjection> page = productRepository.searchProducts(categoryIds, name.trim(), pageable);
         List<Long> productIds = page.map(ProductProjection::getId).stream().toList();
 
         List<Product> entities = productRepository.searchProductsWithCategories(productIds);
+
+        entities = (List<Product>) Utils.replace(page.getContent(), entities);
+
         List<ProductResponseDTO> productResponseDTOS = entities.stream().map( e -> new ProductResponseDTO(e, e.getCategories())).toList();
 
         Page<ProductResponseDTO> productResponseDTOPage = new PageImpl<>(productResponseDTOS, page.getPageable(), page.getTotalPages());
