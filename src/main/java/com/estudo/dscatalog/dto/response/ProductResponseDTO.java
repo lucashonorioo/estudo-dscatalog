@@ -1,6 +1,7 @@
 package com.estudo.dscatalog.dto.response;
 
 
+import com.estudo.dscatalog.dto.request.CategoryRequestDTO;
 import com.estudo.dscatalog.model.Category;
 import com.estudo.dscatalog.model.Product;
 
@@ -46,6 +47,11 @@ public class ProductResponseDTO {
             categories.add(new CategoryResponseDTO(category));
         }
 
+    }
+
+    public ProductResponseDTO(Product product, Set<Category> categories) {
+        this(product);
+        categories.forEach( c -> this.categories.add(new CategoryResponseDTO(c)));
     }
 
     public Long getId() {

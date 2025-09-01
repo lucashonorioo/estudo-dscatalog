@@ -2,6 +2,7 @@ package com.estudo.dscatalog.controller;
 
 import com.estudo.dscatalog.dto.request.ProductRequestDTO;
 import com.estudo.dscatalog.dto.response.ProductResponseDTO;
+import com.estudo.dscatalog.projections.ProductProjection;
 import com.estudo.dscatalog.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -31,10 +32,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductResponseDTO>> findAll(Pageable pageable)
+    public ResponseEntity<Page<ProductResponseDTO>> findAll(
+            @RequestParam(value = "name", defaultValue = "") String name,
+            @RequestParam(value = "categoryId", defaultValue = "0") String categoryId,
+            Pageable pageable)
     {
-        Page<ProductResponseDTO> productResponseDTOPage = productService.findAll(pageable);
-        return ResponseEntity.ok().body(productResponseDTOPage);
+        Page<ProductResponseDTO> productProjections = productService.findAll(name, categoryId, pageable);
+        return ResponseEntity.ok().body(productProjections);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

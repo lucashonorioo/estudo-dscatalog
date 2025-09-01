@@ -53,11 +53,6 @@ public class ProductRequestDTO {
         date = product.getDate();
     }
 
-    public ProductRequestDTO(Product product, Set<Category> categories) {
-        this(product);
-        categories.forEach( c -> this.categories.add(new CategoryRequestDTO(c)));
-    }
-
 
     public String getName() {
         return name;
