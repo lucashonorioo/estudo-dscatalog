@@ -43,10 +43,6 @@ public class ProductResponseDTO {
         price = product.getPrice();
         imgUrl = product.getImgUrl();
         date = product.getDate();
-        for(Category category : product.getCategories()){
-            categories.add(new CategoryResponseDTO(category));
-        }
-
     }
 
     public ProductResponseDTO(Product product, Set<Category> categories) {
