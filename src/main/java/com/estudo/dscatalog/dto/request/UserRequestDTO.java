@@ -3,6 +3,7 @@ package com.estudo.dscatalog.dto.request;
 import com.estudo.dscatalog.dto.response.RoleResponseDTO;
 import com.estudo.dscatalog.model.User;
 import com.estudo.dscatalog.service.validation.UserInsertValid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.HashSet;
@@ -17,12 +18,8 @@ public class UserRequestDTO {
     @NotBlank(message = "O segundo nome não pode ser vazio")
     private String lastName;
 
-    @NotBlank(message = "O email não pode ser vazio")
+    @Email(message = "Inserir email valido")
     private String email;
-
-    @NotBlank(message = "A senha não pode ser vazio")
-    private String password;
-
 
     Set<RoleResponseDTO> roles = new HashSet<>();
 
@@ -30,19 +27,17 @@ public class UserRequestDTO {
 
     }
 
-
-    public UserRequestDTO(String firstName, String lastName, String email, String password) {
+    public UserRequestDTO(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+
     }
 
     public UserRequestDTO(User user) {
         firstName = user.getFirstName();
         lastName = user.getLastName();
         email = user.getEmail();
-        password = user.getPassword();
         user.getRoles().forEach( role -> this.roles.add(new RoleResponseDTO(role)));
     }
 
@@ -74,11 +69,4 @@ public class UserRequestDTO {
         return roles;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

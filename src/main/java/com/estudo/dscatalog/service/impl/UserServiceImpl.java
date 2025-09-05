@@ -65,6 +65,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserResponseDTO insert(UserInsertDTO userInsertDTO) {
         User user = new User();
         toDto(userInsertDTO, user);
+
+        user.getRoles().clear();
+        Role role = roleRepository.findByAuthority("ROLE_OPERATOR");
+        user.getRoles().add(role);
+
         user.setPassword(passwordEncoder.encode(userInsertDTO.getPassword()));
         user = userRepository.save(user);
         return new UserResponseDTO(user);
@@ -123,6 +128,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setFirstName(userRequestDTO.getFirstName());
         user.setLastName(userRequestDTO.getLastName());
         user.setEmail(userRequestDTO.getEmail());
+
+        user.getRoles().clear();
         for(RoleResponseDTO roleResponseDTO : userRequestDTO.getRoles()){
             Role role = roleRepository.getReferenceById(roleResponseDTO.getId());
             user.getRoles().add(role);
