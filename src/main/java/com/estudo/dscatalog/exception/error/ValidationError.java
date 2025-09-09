@@ -8,8 +8,8 @@ public class ValidationError extends CustomError{
 
     List<FieldMessage> erors = new ArrayList<>();
 
-    public ValidationError(Instant timestamp, Integer status, String error, String path) {
-        super(timestamp, status, error, path);
+    public ValidationError(Instant timestamp, Integer status, String message, String error, String path) {
+        super(timestamp, status, message, error, path);
     }
 
     public List<FieldMessage> getErors() {

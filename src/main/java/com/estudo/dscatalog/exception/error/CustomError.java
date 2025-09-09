@@ -6,6 +6,7 @@ public class CustomError {
 
     private Instant timestamp;
     private Integer status;
+    private String message;
     private String error;
     private String path;
 
@@ -13,9 +14,17 @@ public class CustomError {
 
     }
 
-    public CustomError(Instant timestamp, Integer status, String error, String path) {
+    public CustomError(Instant timestamp, Integer status,  String error, String path) {
         this.timestamp = timestamp;
         this.status = status;
+        this.error = error;
+        this.path = path;
+    }
+
+    public CustomError(Instant timestamp, Integer status, String message, String error, String path) {
+        this.timestamp = timestamp;
+        this.status = status;
+        this.message = message;
         this.error = error;
         this.path = path;
     }
@@ -26,6 +35,10 @@ public class CustomError {
 
     public Integer getStatus() {
         return status;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public String getError() {
