@@ -35,11 +35,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final AuthServiceImpl authService;
 
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, AuthServiceImpl authService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authService = authService;
     }
 
 
@@ -50,6 +53,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new RuntimeException("O id deve ser positivo e não nulo");
         }
         User user = userRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("Recurso não encontrado"));
+        return new UserResponseDTO(user);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserResponseDTO findMe() {
+        User user = authService.authenticated();
         return new UserResponseDTO(user);
     }
 

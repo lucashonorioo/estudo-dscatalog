@@ -32,6 +32,13 @@ public class UserController {
         return ResponseEntity.ok().body(userResponseDTO);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
+    @GetMapping("/me")
+    ResponseEntity<UserResponseDTO> findMe(){
+        UserResponseDTO userResponseDTO = userService.findMe();
+        return ResponseEntity.ok().body(userResponseDTO);
+    }
+
     @GetMapping
     ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable){
         Page<UserResponseDTO> userResponseDTO = userService.findAll(pageable);

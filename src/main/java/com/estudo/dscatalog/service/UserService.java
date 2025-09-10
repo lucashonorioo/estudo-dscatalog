@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 public interface UserService {
 
     UserResponseDTO findById(Long id);
+    UserResponseDTO findMe();
     Page<UserResponseDTO> findAll(Pageable pageable);
     UserResponseDTO insert(UserInsertDTO userRequestDTO);
     UserResponseDTO update(Long id, UserUpdateDTO userRequestDTO);
